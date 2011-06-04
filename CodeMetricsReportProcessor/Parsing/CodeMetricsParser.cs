@@ -7,103 +7,100 @@ namespace CodeMetricsReportProcessor.Parsing
 {
     public class CodeMetricsParser
     {
-        readonly IList<CodeMetricsResult> results = new List<CodeMetricsResult>();
+        readonly IList<FlatResult> results = new List<FlatResult>();
 
-        public IEnumerable<CodeMetricsResult> Parse(string content)
+        public Report Parse(string content)
         {
             var document = XDocument.Parse(content);
+            var report = new Report();
 
-            foreach (var target in document.Descendants("Target"))
+            foreach (var targetElement in document.Descendants("Target"))
             {
-                ParseTarget(target);
+                var target = ParseTarget(targetElement);
+                report.Targets.Add(target);
             }
 
-            return results;
+            return report;
         }
 
-        private void ParseTarget(XElement target)
+        private Target ParseTarget(XElement targetElement)
         {
-            var result = new CodeMetricsResult
+            var target = new Target()
             {
-                Target = ParseName(target),
-                Metrics = ParseMetrics(target)
+                Name = ParseName(targetElement),
+                Metrics = ParseMetrics(targetElement)
             };
 
-            results.Add(result);
 
-            foreach (var module in target.Descendants("Module"))
+            foreach (var moduleElement in targetElement.Descendants("Module"))
             {
-                ParseModule(module, result.Target);
+                var module = ParseModule(moduleElement);
+                target.Modules.Add(module);
             }
+
+            return target;
         }
 
-        private void ParseModule(XElement module, string target)
+        private Module ParseModule(XElement moduleElement)
         {
-            var result = new CodeMetricsResult
+            var module = new Module
             {
-                Target = target,
-                Module = ParseName(module),
-                Metrics = ParseMetrics(module)
+                Name = ParseName(moduleElement),
+                Metrics = ParseMetrics(moduleElement)
             };
 
-            results.Add(result);
-
-            foreach (var @namespace in module.Descendants("Namespace"))
+            foreach (var namespaceElement in moduleElement.Descendants("Namespace"))
             {
-                ParseNamespace(@namespace, target, result.Module);
+                var @namespace = ParseNamespace(namespaceElement);
+                module.Namespaces.Add(@namespace);
             }
+
+            return module;
         }
 
-        private void ParseNamespace(XElement @namespace, string target, string module)
+        private Namespace ParseNamespace(XElement namespaceElement)
         {
-            var result = new CodeMetricsResult
+            var @namespace = new Namespace()
             {
-                Target = target,
-                Module = module,
-                Namespace = ParseName(@namespace),
-                Metrics = ParseMetrics(@namespace)
+                Name = ParseName(namespaceElement),
+                Metrics = ParseMetrics(namespaceElement)
             };
 
-            results.Add(result);
-
-            foreach (var type in @namespace.Descendants("Type"))
+            foreach (var typeElement in namespaceElement.Descendants("Type"))
             {
-                ParseType(type, target, module, result.Namespace);
+                var type = ParseType(typeElement);
+                @namespace.Types.Add(type);
             }
+
+            return @namespace;
         }
 
-        private void ParseType(XElement type, string target, string module, string @namespace)
+        private Type ParseType(XElement typeElement)
         {
-            var result = new CodeMetricsResult
+            var type = new Type
+                           {
+                               Name = ParseName(typeElement),
+                               Metrics = ParseMetrics(typeElement)
+                           };
+
+            foreach (var memberElement in typeElement.Descendants("Member"))
+            {
+                var member = ParseMember(memberElement);
+                type.Members.Add(member);
+            }
+
+            return type;
+        }
+
+        private Member ParseMember(XElement memberElement)
+        {
+            var member = new Member()
                             {
-                                Target = target,
-                                Module = module,
-                                Namespace = @namespace,
-                                Type = ParseName(type),
-                                Metrics = ParseMetrics(type)
+                                Name = ParseName(memberElement),
+                                Metrics = ParseMetrics(memberElement)
                             };
 
-            results.Add(result);
-
-            foreach (var memeber in type.Descendants("Member"))
-            {
-                ParseMember(memeber, target, module, @namespace, result.Type);
-            }
-        }
-
-        private void ParseMember(XContainer member, string target, string module, string @namespace, string type)
-        {
-
-            var entry = new CodeMetricsResult
-                            {
-                                Target = target,
-                                Module = module,
-                                Namespace = @namespace,
-                                Type = type,
-                                Metrics = ParseMetrics(member)
-                            };
-
-            results.Add(entry);
+            return member;
         }
 
         private static Dictionary<string, int> ParseMetrics(XContainer element)

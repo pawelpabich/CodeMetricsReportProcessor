@@ -64,10 +64,14 @@ namespace CodeMetricsReportProcessor.Tests.Parsing
                     </CodeMetricsReport>";
 
             var parser = new CodeMetricsParser();
-            var results = parser.Parse(content);
+            var report = parser.Parse(content);
 
-            results.Count().ShouldBe(5);
-            results.Last().Metrics["MaintainabilityIndex"].ShouldBe(98);
+            report.Targets.Count.ShouldBe(1);
+            report.Targets.Single()
+                  .Modules.Single()
+                  .Namespaces.Single()
+                  .Types.Single()
+                  .Members.Single().Metrics["MaintainabilityIndex"].ShouldBe(98);
         }
     }
 }

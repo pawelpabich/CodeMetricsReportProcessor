@@ -2,7 +2,7 @@
 
 namespace CodeMetricsReportProcessor.Parsing
 {
-    public class CodeMetricsResult
+    public class FlatResult
     {
         public string Target { get; set; }
         public string Module { get; set; }

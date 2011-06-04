@@ -35,8 +35,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="RazorEngine">
+      <HintPath>..\packages\RazorEngine.2.1\lib\.NetFramework 4.0\RazorEngine.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\RazorEngine.2.1\lib\.NetFramework 4.0\System.Web.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,15 +52,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Parsing\CodeMetricsParser.cs" />
-    <Compile Include="Parsing\CodeMetricsResult.cs" />
+    <Compile Include="Parsing\Report.cs" />
+    <Compile Include="Parsing\FlatResult.cs" />
+    <Compile Include="Parsing\Member.cs" />
+    <Compile Include="Parsing\Module.cs" />
+    <Compile Include="Parsing\Namespace.cs" />
+    <Compile Include="Parsing\Target.cs" />
+    <Compile Include="Parsing\Type.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Rendering\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Templates\Index.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

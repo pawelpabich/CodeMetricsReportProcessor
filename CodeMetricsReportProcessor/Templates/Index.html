@@ -1,0 +1,29 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+	    <table id="summary">
+            <thead>
+                <tr>
+                                        
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var module in Model.Targets.SelectMany(target => target.Modules) {
+                    <tr>
+                        <td>
+                            @module.Name
+                        </td>
+                        @forach(var metric in module.Metrics) {
+                            <td>
+                                @metric.Value
+                            </td>
+                        }
+                    </tr>
+                }                
+            </tbody>
+        </table>
+	</body>
+</html>
