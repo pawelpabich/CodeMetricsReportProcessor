@@ -13,12 +13,12 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach(var module in Model.Targets.SelectMany(target => target.Modules) {
+                @foreach(var module in Model.Targets.SelectMany(target => target.Modules)) {
                     <tr>
                         <td>
                             <a href='@module.Name + ".html"'>@module.Name</a>                            
                         </td>
-                        @forach(var metric in module.Metrics) {
+                        @foreach(var metric in module.Metrics) {
                             <td>
                                 @metric.Value
                             </td>
