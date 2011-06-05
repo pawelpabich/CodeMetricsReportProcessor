@@ -1,9 +1,52 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+﻿<!DOCTYPE HTML>
 <html>
 	<head>
-		<title></title>
+		 <title>@Model.Name</title>
+         <link href="styles.css" rel="stylesheet" type="text/css" media="screen"></link> 
 	</head>
 	<body>
-	
+        @{ var allPossibleMetrics = Model.AllPossibleMetrics(); }
+	    <table id="module">
+            <thead>
+                <tr>
+                    <th>Namespace</th>
+                    <th>Type</th>
+                    <th>Member</th>                   
+                    @foreach(var metric in allPossibleMetrics) {
+                    <th class="metric">
+                        @foreach(var letter in metric.ToCharArray()){
+                            <em>@letter</em>
+                        }                    
+                    </th>                     
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var result in Model.Flatten()) {
+                    <tr>
+                        <td>@result.Namespace</td>
+                        <td>@result.Type</td>
+                        <td>@result.Member</td>
+                        @foreach(var metric in allPossibleMetrics) {
+                        <td>
+                            @if(result.Metrics.ContainsKey(metric)) {
+                                @result.Metrics[metric]
+                            }
+                        </td>
+                        }
+                    </tr>
+                }                
+            </tbody>
+        </table>
+        <script src="jquery.js" type="text/javascript"></script>
+        <script src="jquery.dataTables.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(function () {
+                $('#module').dataTable({
+                    bPaginate: false,
+                    bInfo: false
+                });
+            });
+        </script>
 	</body>
 </html>

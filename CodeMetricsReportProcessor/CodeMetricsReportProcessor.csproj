@@ -53,7 +53,7 @@
   <ItemGroup>
     <Compile Include="Parsing\CodeMetricsParser.cs" />
     <Compile Include="Parsing\Report.cs" />
-    <Compile Include="Parsing\FlatResult.cs" />
+    <Compile Include="Parsing\FlatModuleScopedResult.cs" />
     <Compile Include="Parsing\Member.cs" />
     <Compile Include="Parsing\Module.cs" />
     <Compile Include="Parsing\Namespace.cs" />

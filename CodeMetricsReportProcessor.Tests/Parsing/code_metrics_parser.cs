@@ -9,7 +9,7 @@ namespace CodeMetricsReportProcessor.Tests.Parsing
     public class code_metrics_parser
     {
         [Test]
-        public void parses_code_metrics_raw_data()
+        public void should_parse_code_metrics_raw_data()
         {
             const string content =
                 @"<?xml version='1.0' encoding='utf-8'?>

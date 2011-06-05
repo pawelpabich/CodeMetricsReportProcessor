@@ -20,8 +20,17 @@ namespace CodeMetricsReportProcessor
 
             var summaryTemplateContent = GetContent(summaryTemplate.FullPath);
             var renderer = new TemplateRenderer();
-            var summary = renderer.Render(summaryTemplateContent, data);
-            SaveContent(reportOutputFolder, summaryTemplate.Name + summaryTemplate.Extension, summary);
+            var summaryView = renderer.Render(summaryTemplateContent, data);
+            SaveContent(reportOutputFolder, summaryTemplate.Name + summaryTemplate.Extension, summaryView);
+
+            var moduleTemplate = templateFinder.FindTemplateFor("Module");
+
+            foreach (var module in data.Targets.SelectMany(t => t.Modules))
+            {
+                var moduleTemplateContent = GetContent(moduleTemplate.FullPath);
+                var moduleView = renderer.Render(moduleTemplateContent, module);
+                SaveContent(reportOutputFolder, module.Name + moduleTemplate.Extension, moduleView);
+            }
         }
 
         private void CopyTemplatesToTheOutputFolder(string to)

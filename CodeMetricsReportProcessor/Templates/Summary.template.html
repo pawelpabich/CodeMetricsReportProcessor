@@ -11,7 +11,11 @@
                     <th>Module</th>
                     @{ var moduleSpecificMetrics = Model.Targets.First().Modules.First().Metrics.Keys; }
                     @foreach(var metric in moduleSpecificMetrics) {
-                    <th>@metric</th>                       
+                    <th class="metric">
+                        @foreach(var letter in metric.ToCharArray()){
+                            <em>@letter</em>
+                        }                    
+                    </th>                       
                     }
                 </tr>
             </thead>

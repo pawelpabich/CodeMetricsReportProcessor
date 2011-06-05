@@ -23,12 +23,25 @@ table {
 	 */
 }
 
-table thead th {
+th {
 	padding: 3px 18px 3px 10px;
 	border-bottom: 1px solid black;
 	font-weight: bold;
 	cursor: pointer;
 	* cursor: hand;
+	vertical-align:bottom;
+}
+
+th.metric
+{
+       width: 1px;
+       white-space: normal;
+}
+
+/* Hack to display the headers vertically */
+th.metric em {
+    display: block;
+    line-height:1;
 }
 
 

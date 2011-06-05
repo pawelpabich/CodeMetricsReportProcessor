@@ -11,7 +11,7 @@ namespace CodeMetricsReportProcessor.Tests.Rendering
     public class template_renderer
     {
         [Test]
-        public void renders_template_correclty()
+        public void shold_render_template_correclty()
         {        
             const string output = @"Constant test and single VALUE";
             const string template = @"Constant test and single @Model.Property";
