@@ -1,0 +1,91 @@
+﻿
+/* This is taken from one of the samples on DataTables site */
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * DataTables display
+ */
+table {
+	margin: 0 auto;
+	clear: both;
+	width: 100%;
+	
+	/* Note Firefox 3.5 and before have a bug with border-collapse
+	 * ( https://bugzilla.mozilla.org/show%5Fbug.cgi?id=155955 ) 
+	 * border-spacing: 0; is one possible option. Conditional-css.com is
+	 * useful for this kind of thing
+	 *
+	 * Further note IE 6/7 has problems when calculating widths with border width.
+	 * It subtracts one px relative to the other browsers from the first column, and
+	 * adds one to the end...
+	 *
+	 * If you want that effect I'd suggest setting a border-top/left on th/td's and 
+	 * then filling in the gaps with other borders.
+	 */
+}
+
+table thead th {
+	padding: 3px 18px 3px 10px;
+	border-bottom: 1px solid black;
+	font-weight: bold;
+	cursor: pointer;
+	* cursor: hand;
+}
+
+
+table td {
+	padding: 0 5px 0 5px;
+}
+
+table td.center {
+	text-align: center;
+}
+
+
+.clear {
+	clear: both;
+}
+
+
+/*
+ * Row highlighting example
+ */
+tbody tr.even:hover, #example tbody tr.even td.highlighted {
+	background-color: #ECFFB3;
+}
+
+tbody tr.odd:hover, #example tbody tr.odd td.highlighted {
+	background-color: #E6FF99;
+}
+
+tr.even:hover {
+	background-color: #ECFFB3;
+}
+
+tr.even:hover td.sorting_1 {
+	background-color: #DDFF75;
+}
+tr.even:hover td.sorting_2 {
+	background-color: #E7FF9E;
+}
+
+tr.even:hover td.sorting_3 {
+	background-color: #E2FF89;
+}
+
+tr.odd:hover {
+	background-color: #E6FF99;
+}
+
+tr.odd:hover td.sorting_1 {
+	background-color: #D6FF5C;
+}
+
+tr.odd:hover td.sorting_2 {
+	background-color: #E0FF84;
+}
+
+tr.odd:hover td.sorting_3 {
+	background-color: #DBFF70;
+}
+
+

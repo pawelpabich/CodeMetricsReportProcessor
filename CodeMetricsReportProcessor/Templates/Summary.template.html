@@ -2,30 +2,43 @@
 <html>
 	<head>
 		 <title>Summary</title>
-         <script src="jquery.js" type="text/javascript"></script>
-         <script src="jquery.dataTables.js" type="text/javascript"></script>
+         <link href="styles.css" rel="stylesheet" type="text/css" media="screen"></link> 
 	</head>
 	<body>
-	    <table id='summary'>
+	    <table id="summary">
             <thead>
                 <tr>
-                                        
+                    <th>Module</th>
+                    @{ var moduleSpecificMetrics = Model.Targets.First().Modules.First().Metrics.Keys; }
+                    @foreach(var metric in moduleSpecificMetrics) {
+                    <th>@metric</th>                       
+                    }
                 </tr>
             </thead>
             <tbody>
                 @foreach(var module in Model.Targets.SelectMany(target => target.Modules)) {
                     <tr>
                         <td>
-                            <a href='@module.Name + ".html"'>@module.Name</a>                            
+                            <a href='@String.Join(".", module.Name, "html")'>@module.Name</a>                            
                         </td>
-                        @foreach(var metric in module.Metrics) {
-                            <td>
-                                @metric.Value
-                            </td>
+                        @foreach(var metric in moduleSpecificMetrics) {
+                        <td>
+                            @module.Metrics[metric]
+                        </td>
                         }
                     </tr>
                 }                
             </tbody>
         </table>
+        <script src="jquery.js" type="text/javascript"></script>
+        <script src="jquery.dataTables.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(function () {
+		        $('#summary').dataTable({
+		            bPaginate : false,
+                    bInfo : false
+		        });
+		    });
+        </script>
 	</body>
 </html>

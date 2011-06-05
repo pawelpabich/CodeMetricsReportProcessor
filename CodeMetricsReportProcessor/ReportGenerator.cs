@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using CodeMetricsReportProcessor.Parsing;
 using CodeMetricsReportProcessor.Rendering;
 
@@ -12,17 +10,21 @@ namespace CodeMetricsReportProcessor
     {
         public void GenerateFullReport(string codeMetricsDataFile, string reportOutputFolder)
         {
-            CopyTemplates(reportOutputFolder);
+            CopyTemplatesToTheOutputFolder(reportOutputFolder);
 
             var parser = new CodeMetricsParser();
             var data = parser.Parse(GetContent(codeMetricsDataFile));
 
+            var templateFinder = new TemplateFinder(reportOutputFolder);
+            var summaryTemplate = templateFinder.FindTemplateFor("Summary");
+
+            var summaryTemplateContent = GetContent(summaryTemplate.FullPath);
             var renderer = new TemplateRenderer();
-            var summary = renderer.Render(GetContent(reportOutputFolder, "Summary.template.html"), data);
-            SaveContent(reportOutputFolder, "Summary.html", summary);
+            var summary = renderer.Render(summaryTemplateContent, data);
+            SaveContent(reportOutputFolder, summaryTemplate.Name + summaryTemplate.Extension, summary);
         }
 
-        private void CopyTemplates(string to)
+        private void CopyTemplatesToTheOutputFolder(string to)
         {
             var from = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates");
             if (Directory.Exists(to))
@@ -60,5 +62,40 @@ namespace CodeMetricsReportProcessor
         {
             return GetContent(Path.Combine(pathToFolder, fileName));
         }
+    }
+
+    public class TemplateFinder
+    {
+        private readonly string pathToFolderWithTemplates;
+
+        public TemplateFinder(string pathToFolderWithTemplates)
+        {
+            this.pathToFolderWithTemplates = pathToFolderWithTemplates;
+        }
+
+        public Template FindTemplateFor(string templateName)
+        {
+            var result = Directory.GetFiles(pathToFolderWithTemplates, templateName + ".*");
+            if (result.Length == 0) throw new TemplateFinderException("Couldn't find " + templateName + " template");
+            if (result.Length > 1) throw new TemplateFinderException("Found more than one matching template for " + templateName + 
+                                                                    "Candidates: " + String.Join(",", result) );
+            var match = result.Single();
+            return new Template {Name = templateName, Extension = Path.GetExtension(match), FullPath = match};
+        }
+    }
+
+    
+    public class TemplateFinderException : Exception
+    {
+        public TemplateFinderException(string message):base(message)
+        {
+        }
+    }
+
+    public class Template
+    {
+        public string FullPath { get; set; }
+        public string Extension { get; set; }
+        public string Name { get; set; }
     }
 }

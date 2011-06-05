@@ -26,7 +26,7 @@ namespace CodeMetricsReportProcessor
                 var message = "Errors: ";
                 foreach (var compilerError in ex.Errors)
                 {
-                    message += Environment.NewLine + compilerError.ToString();
+                    message += "-----------------" + Environment.NewLine + compilerError;
                 }
 
                 LogException(ex, message);
@@ -39,6 +39,7 @@ namespace CodeMetricsReportProcessor
             {
                 Console.ForegroundColor = system;
             }
+            Console.ReadKey();
 
         }
 
