@@ -10,5 +10,5 @@ namespace CodeMetricsReportProcessor.Parsing
         }
 
         public IList<Target> Targets { get; set; }
-    }
+    }   
 }

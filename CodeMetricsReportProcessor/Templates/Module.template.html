@@ -28,11 +28,10 @@
                         <td>@result.Type</td>
                         <td>@result.Member</td>
                         @foreach(var metric in allPossibleMetrics) {
-                        <td>
-                            @if(result.Metrics.ContainsKey(metric)) {
-                                @result.Metrics[metric]
-                            }
-                        </td>
+                            int? metricValue = result.Metrics.ContainsKey(metric) ? (int?)result.Metrics[metric] : null; 
+                            <td class="@this.GetQualityLevelFor(metric, metricValue)">
+                               @metricValue
+                            </td>
                         }
                     </tr>
                 }                

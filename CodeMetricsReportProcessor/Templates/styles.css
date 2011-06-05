@@ -101,4 +101,25 @@ tr.odd:hover td.sorting_3 {
 	background-color: #DBFF70;
 }
 
+.poor
+{
+    text-align: right;
+    background-color: Red;
+    color: White;
+}
+
+.average
+{
+    text-align: right;
+    background-color: Yellow;
+    color: Black;
+}
+
+.good
+{
+    text-align: right;
+    background-color: Green;
+    color: White;
+}
+
 

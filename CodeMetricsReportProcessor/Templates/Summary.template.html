@@ -26,7 +26,7 @@
                             <a href='@String.Join(".", module.Name, "html")'>@module.Name</a>                            
                         </td>
                         @foreach(var metric in moduleSpecificMetrics) {
-                        <td>
+                        <td class="@this.GetQualityLevelFor(metric, module.Metrics[metric])">
                             @module.Metrics[metric]
                         </td>
                         }
