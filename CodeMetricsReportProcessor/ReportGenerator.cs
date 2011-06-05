@@ -10,12 +10,15 @@ namespace CodeMetricsReportProcessor
     {
         public void GenerateFullReport(string codeMetricsDataFile, string reportOutputFolder)
         {
+            reportOutputFolder = Path.GetFullPath(reportOutputFolder);
+            codeMetricsDataFile = Path.GetFullPath(codeMetricsDataFile);
+
             CopyTemplatesToTheOutputFolder(reportOutputFolder);
 
             var parser = new CodeMetricsParser();
-            var data = parser.Parse(GetContent(Path.GetFullPath(codeMetricsDataFile)));
+            var data = parser.Parse(GetContent(codeMetricsDataFile));
 
-            var templateFinder = new TemplateFinder(Path.GetFullPath(reportOutputFolder));
+            var templateFinder = new TemplateFinder(reportOutputFolder);
             var summaryTemplate = templateFinder.FindTemplateFor("Summary");
 
             var summaryTemplateContent = GetContent(summaryTemplate.FullPath);

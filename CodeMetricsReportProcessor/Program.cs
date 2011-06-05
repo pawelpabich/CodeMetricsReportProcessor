@@ -2,20 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NDesk.Options;
 using RazorEngine.Templating;
 
 namespace CodeMetricsReportProcessor
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             var system = Console.ForegroundColor;
 
             try
             {
+                var pathToInputFile = "";
+                var pathToOutputFolder = "";
+                var showHelp = false;
+
+                var options = new OptionSet() {
+                    { "i|input=", "path to the input file", input => pathToInputFile = input },
+                    { "o|output=", "path to the output *folder*", o => pathToOutputFolder = o},
+                    { "h|help",  "show this message and exit", v => showHelp = v != null },
+                };
+
+                options.Parse(args);
+                if (args.Length < 2) showHelp = true;
+
+                if (showHelp)
+                {
+                    options.WriteOptionDescriptions(Console.Out);   
+                    return;
+                }
+
+
                 var reportGenerator = new ReportGenerator();
-                //reportGenerator.GenerateFullReport(args.);
+                reportGenerator.GenerateFullReport(pathToInputFile, pathToOutputFolder);
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("All good");
@@ -39,8 +60,6 @@ namespace CodeMetricsReportProcessor
             {
                 Console.ForegroundColor = system;
             }
-            Console.ReadKey();
-
         }
 
         private static void LogException(Exception e, string message)

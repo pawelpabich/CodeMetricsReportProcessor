@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Options.cs" />
     <Compile Include="Parsing\CodeMetricsParser.cs" />
     <Compile Include="Parsing\Report.cs" />
     <Compile Include="Parsing\FlatModuleScopedResult.cs" />

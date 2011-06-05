@@ -7,13 +7,12 @@ using Shouldly;
 namespace CodeMetricsReportProcessor.IntegrationTests
 {
     [TestFixture]
-    public class report_generator
+    public class code_metrics_report_processor
     {
         [Test]
         public void should_generate_correct_html_report()
         {
-            var reportGenerator = new ReportGenerator();
-            reportGenerator.GenerateFullReport(@"Data\report1.xml", "Results");
+            Program.Main(new[] { @"Data\report1.xml", "Results" });
 
             var moduleFiles = Directory.GetFiles(Path.GetFullPath("Results"), "*.dll.html");
             moduleFiles.Count().ShouldBe(2);
