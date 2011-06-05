@@ -3,11 +3,13 @@ using System.IO;
 using System.Linq;
 using CodeMetricsReportProcessor.Parsing;
 using CodeMetricsReportProcessor.Rendering;
+using CodeMetricsReportProcessor.TemplateManagement;
 
 namespace CodeMetricsReportProcessor
 {
     public class ReportGenerator
     {
+        //TODO: this method is doing way too much - Pawel
         public void GenerateFullReport(string codeMetricsDataFile, string reportOutputFolder)
         {
             reportOutputFolder = Path.GetFullPath(reportOutputFolder);
@@ -69,45 +71,5 @@ namespace CodeMetricsReportProcessor
         {
             return File.ReadAllText(pathToFile);
         }
-
-        private string GetContent(string pathToFolder, string fileName)
-        {
-            return GetContent(Path.Combine(pathToFolder, fileName));
-        }
-    }
-
-    public class TemplateFinder
-    {
-        private readonly string pathToFolderWithTemplates;
-
-        public TemplateFinder(string pathToFolderWithTemplates)
-        {
-            this.pathToFolderWithTemplates = pathToFolderWithTemplates;
-        }
-
-        public Template FindTemplateFor(string templateName)
-        {
-            var result = Directory.GetFiles(pathToFolderWithTemplates, templateName + ".*");
-            if (result.Length == 0) throw new TemplateFinderException("Couldn't find " + templateName + " template");
-            if (result.Length > 1) throw new TemplateFinderException("Found more than one matching template for " + templateName + 
-                                                                    "Candidates: " + String.Join(",", result) );
-            var match = result.Single();
-            return new Template {Name = templateName, Extension = Path.GetExtension(match), FullPath = match};
-        }
-    }
-
-    
-    public class TemplateFinderException : Exception
-    {
-        public TemplateFinderException(string message):base(message)
-        {
-        }
-    }
-
-    public class Template
-    {
-        public string FullPath { get; set; }
-        public string Extension { get; set; }
-        public string Name { get; set; }
     }
 }

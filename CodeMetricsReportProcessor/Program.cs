@@ -12,7 +12,7 @@ namespace CodeMetricsReportProcessor
         public static void Main(string[] args)
         {
             var system = Console.ForegroundColor;
-
+            
             try
             {
                 var pathToInputFile = "";
@@ -26,7 +26,8 @@ namespace CodeMetricsReportProcessor
                 };
 
                 options.Parse(args);
-                if (args.Length < 2) showHelp = true;
+
+                if (String.IsNullOrEmpty(pathToInputFile) || String.IsNullOrEmpty(pathToOutputFolder)) showHelp = true;
 
                 if (showHelp)
                 {

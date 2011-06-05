@@ -12,7 +12,7 @@ namespace CodeMetricsReportProcessor.IntegrationTests
         [Test]
         public void should_generate_correct_html_report()
         {
-            Program.Main(new[] { @"Data\report1.xml", "Results" });
+            Program.Main(new[] {"-i", @"Data\report1.xml", "-o", "Results" });
 
             var moduleFiles = Directory.GetFiles(Path.GetFullPath("Results"), "*.dll.html");
             moduleFiles.Count().ShouldBe(2);
