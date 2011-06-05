@@ -1,10 +1,12 @@
 ﻿<!DOCTYPE HTML>
 <html>
 	<head>
-		<title></title>
+		 <title>Summary</title>
+         <script src="jquery.js" type="text/javascript"></script>
+         <script src="jquery.dataTables.js" type="text/javascript"></script>
 	</head>
 	<body>
-	    <table id="summary">
+	    <table id='summary'>
             <thead>
                 <tr>
                                         
@@ -14,7 +16,7 @@
                 @foreach(var module in Model.Targets.SelectMany(target => target.Modules) {
                     <tr>
                         <td>
-                            @module.Name
+                            <a href='@module.Name + ".html"'>@module.Name</a>                            
                         </td>
                         @forach(var metric in module.Metrics) {
                             <td>
