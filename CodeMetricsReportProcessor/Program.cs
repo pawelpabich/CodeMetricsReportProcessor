@@ -15,7 +15,7 @@ namespace CodeMetricsReportProcessor
             try
             {
                 var reportGenerator = new ReportGenerator();
-                reportGenerator.GenerateFullReport(@"C:\Temp\MetricTest\out.xml", @"C:\Temp\MetricTest\Results");
+                //reportGenerator.GenerateFullReport(args.);
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("All good");

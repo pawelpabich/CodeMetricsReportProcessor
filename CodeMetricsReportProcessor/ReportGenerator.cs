@@ -13,9 +13,9 @@ namespace CodeMetricsReportProcessor
             CopyTemplatesToTheOutputFolder(reportOutputFolder);
 
             var parser = new CodeMetricsParser();
-            var data = parser.Parse(GetContent(codeMetricsDataFile));
+            var data = parser.Parse(GetContent(Path.GetFullPath(codeMetricsDataFile)));
 
-            var templateFinder = new TemplateFinder(reportOutputFolder);
+            var templateFinder = new TemplateFinder(Path.GetFullPath(reportOutputFolder));
             var summaryTemplate = templateFinder.FindTemplateFor("Summary");
 
             var summaryTemplateContent = GetContent(summaryTemplate.FullPath);
