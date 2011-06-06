@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using CodeMetricsReportProcessor.Rendering;
 
 namespace CodeMetricsReportProcessor.Parsing
 {
@@ -55,6 +57,15 @@ namespace CodeMetricsReportProcessor.Parsing
             }
 
             return results;
+        }
+
+        public int GetWorstValueFor(string metric)
+        {
+            var qualityAssessor = new QualityAssessorFactory().Create(metric);
+            var results = Flatten();
+            var allMetricValues = results.Where(r => r.Metrics.ContainsKey(metric)).Select(r => r.Metrics[metric]);
+
+            return allMetricValues.OrderBy(v => v, new MetricValueComparer(qualityAssessor)).First();
         }
 
         private void AddMetrics(HashSet<string> distinctMetrics, Dictionary<string, int> metrics)

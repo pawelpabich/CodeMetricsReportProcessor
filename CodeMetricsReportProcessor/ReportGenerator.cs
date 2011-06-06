@@ -36,6 +36,16 @@ namespace CodeMetricsReportProcessor
                 var moduleView = renderer.Render(moduleTemplateContent, module);
                 SaveContent(reportOutputFolder, module.Name + moduleTemplate.Extension, moduleView);
             }
+
+            DeleteAllTemplateFiles(reportOutputFolder);
+        }
+
+        private void DeleteAllTemplateFiles(string reportOutputFolder)
+        {
+            foreach (var file in Directory.GetFiles(reportOutputFolder, "*.template*"))
+            {
+                File.Delete(file);
+            }
         }
 
         private void CopyTemplatesToTheOutputFolder(string to)

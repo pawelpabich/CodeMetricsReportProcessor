@@ -1,4 +1,6 @@
-﻿namespace CodeMetricsReportProcessor.Rendering
+﻿using System;
+
+namespace CodeMetricsReportProcessor.Rendering
 {
     public class RangeBasedQualityAssessor : IQualityAssessor
     {
@@ -27,6 +29,13 @@
             if (goodFrom <= value && value <= goodTo) return QualityLevel.Good;
 
             throw new QualityCantBeDeterminedException(this.GetType().Name, value);
+        }
+
+        public bool? IsFirstWorseThanSecond(int first, int second)
+        {
+            if (first == second) return null;
+            var bestPossibleValue = goodFrom == 0 ? goodFrom : goodTo;
+            return Math.Abs(bestPossibleValue - first) > Math.Abs(bestPossibleValue - second);
         }
     }
 }

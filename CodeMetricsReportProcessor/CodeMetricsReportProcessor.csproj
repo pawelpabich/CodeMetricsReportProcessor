@@ -54,6 +54,7 @@
     <Compile Include="Options.cs" />
     <Compile Include="Parsing\CodeMetricsParser.cs" />
     <Compile Include="Parsing\DictionaryExtensions.cs" />
+    <Compile Include="Parsing\MetricValueComparer.cs" />
     <Compile Include="Parsing\Report.cs" />
     <Compile Include="Parsing\FlatModuleScopedResult.cs" />
     <Compile Include="Parsing\Member.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Rendering\IQualityAssessor.cs" />
     <Compile Include="Rendering\LinesOfCodeQualityAssessor.cs" />
     <Compile Include="Rendering\MaintainabilityIndexQualityAssessor.cs" />
+    <Compile Include="Rendering\QualityAssessorFactory.cs" />
     <Compile Include="Rendering\QualityCantBeDeterminedException.cs" />
     <Compile Include="Rendering\QualityLevel.cs" />
     <Compile Include="Rendering\RangeBasedQualityAssessor.cs" />

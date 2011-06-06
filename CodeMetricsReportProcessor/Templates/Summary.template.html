@@ -9,7 +9,8 @@
             <thead>
                 <tr>
                     <th>Module</th>
-                    @foreach(var metric in CodeMetricsReportProcessor.Parsing.Module.RelevantMetrics) {
+                    @{ var allMetrics = Model.AllPossibleMetrics(); }
+                    @foreach(var metric in allMetrics) {
                     <th class="metric">
                         @foreach(var letter in metric.ToCharArray()){
                             <em>@letter</em>
@@ -24,9 +25,9 @@
                         <td>
                             <a href='@String.Join(".", module.Name, "html")'>@module.Name</a>                            
                         </td>
-                        @foreach(var metric in CodeMetricsReportProcessor.Parsing.Module.RelevantMetrics) {
-                        <td class="@this.GetQualityLevelFor(metric, module.Metrics[metric])">
-                            @module.Metrics[metric]
+                        @foreach(var metric in allMetrics) {
+                        <td class="@this.GetQualityLevelFor(metric, module.GetWorstValueFor(metric))">
+                            @module.GetWorstValueFor(metric)
                         </td>
                         }
                     </tr>

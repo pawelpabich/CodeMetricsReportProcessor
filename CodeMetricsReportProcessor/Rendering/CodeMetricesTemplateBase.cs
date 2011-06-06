@@ -10,17 +10,7 @@ namespace CodeMetricsReportProcessor.Rendering
         {
             if (value == null) return "notavailable";
 
-            var normalizedMetricName = NormalizeMetricName(metric);
-            IQualityAssessor qualityAssessor = null;
-            switch(normalizedMetricName)
-            {
-                case "maintainabilityindex": qualityAssessor = new MaintainabilityIndexQualityAssessor(); break;
-                case "cyclomaticcomplexity": qualityAssessor = new CyclomaticComplexityQualityAssessor(); break;
-                case "classcoupling": qualityAssessor = new ClassCouplingQualityAssessor(); break;
-                case "depthofinheritance": qualityAssessor = new DepthOfInheritanceQualityAssessor(); break;
-                case "linesofcode": qualityAssessor = new LinesOfCodeQualityAssessor(); break;
-
-            }
+            var qualityAssessor = new QualityAssessorFactory().Create(metric);
 
             var quality = qualityAssessor.Assess(value.Value);
             switch (quality)
@@ -31,11 +21,6 @@ namespace CodeMetricsReportProcessor.Rendering
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }
-
-        private string NormalizeMetricName(string metric)
-        {
-            return metric.ToLower().Trim().Replace(" ", String.Empty);
         }
     }
 }

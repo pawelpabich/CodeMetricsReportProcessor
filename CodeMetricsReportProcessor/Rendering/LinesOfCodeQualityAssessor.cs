@@ -2,7 +2,7 @@
 {
     public class LinesOfCodeQualityAssessor : RangeBasedQualityAssessor
     {
-        public LinesOfCodeQualityAssessor(): base(50, int.MaxValue, 15, 49, int.MinValue, 14)
+        public LinesOfCodeQualityAssessor(): base(50, 10000, 15, 49, 0, 14)
         {
         }
     }
