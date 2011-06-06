@@ -9,8 +9,7 @@
             <thead>
                 <tr>
                     <th>Module</th>
-                    @{ var moduleSpecificMetrics = Model.Targets.First().Modules.First().Metrics.Keys; }
-                    @foreach(var metric in moduleSpecificMetrics) {
+                    @foreach(var metric in CodeMetricsReportProcessor.Parsing.Module.RelevantMetrics) {
                     <th class="metric">
                         @foreach(var letter in metric.ToCharArray()){
                             <em>@letter</em>
@@ -25,7 +24,7 @@
                         <td>
                             <a href='@String.Join(".", module.Name, "html")'>@module.Name</a>                            
                         </td>
-                        @foreach(var metric in moduleSpecificMetrics) {
+                        @foreach(var metric in CodeMetricsReportProcessor.Parsing.Module.RelevantMetrics) {
                         <td class="@this.GetQualityLevelFor(metric, module.Metrics[metric])">
                             @module.Metrics[metric]
                         </td>

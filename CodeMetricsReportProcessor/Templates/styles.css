@@ -103,21 +103,21 @@ tr.odd:hover td.sorting_3 {
 
 .poor
 {
-    text-align: right;
+    text-align: center;
     background-color: Red;
     color: White;
 }
 
 .average
 {
-    text-align: right;
+    text-align: center;
     background-color: Yellow;
     color: Black;
 }
 
 .good
 {
-    text-align: right;
+    text-align: center;
     background-color: Green;
     color: White;
 }

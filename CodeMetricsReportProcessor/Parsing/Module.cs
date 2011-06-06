@@ -10,6 +10,8 @@ namespace CodeMetricsReportProcessor.Parsing
             Namespaces = new List<Namespace>();
         }
 
+        public static IEnumerable<string> RelevantMetrics = new[] { "MaintainabilityIndex" };
+
         public string Name { get; set; }
         public Dictionary<string, int> Metrics { get; set; }
         public IList<Namespace> Namespaces { get; set; }
@@ -41,13 +43,13 @@ namespace CodeMetricsReportProcessor.Parsing
 
             foreach (var @namespace in Namespaces)
             {
-                results.Add(new FlatModuleScopedResult{Namespace = @namespace.Name, Metrics = @namespace.Metrics});
+                results.Add(new FlatModuleScopedResult{Namespace = @namespace.Name, Metrics = @namespace.Metrics.LimitTo(Namespace.RelevantMetrics)});
                 foreach (var type in @namespace.Types)
                 {
-                    results.Add(new FlatModuleScopedResult {Namespace = @namespace.Name, Type = type.Name, Metrics = type.Metrics });
+                    results.Add(new FlatModuleScopedResult {Namespace = @namespace.Name, Type = type.Name, Metrics = type.Metrics.LimitTo(Type.RelevantMetrics) });
                     foreach (var member in type.Members)
                     {
-                        results.Add(new FlatModuleScopedResult {Namespace = @namespace.Name, Type = type.Name, Member = member.Name, Metrics = member.Metrics });
+                        results.Add(new FlatModuleScopedResult {Namespace = @namespace.Name, Type = type.Name, Member = member.Name, Metrics = member.Metrics.LimitTo(Member.RelevantMetrics) });
                     }
                 }
             }

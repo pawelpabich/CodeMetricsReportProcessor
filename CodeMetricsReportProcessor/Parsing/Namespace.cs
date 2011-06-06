@@ -4,6 +4,8 @@ namespace CodeMetricsReportProcessor.Parsing
 {
     public class Namespace
     {
+        public static IEnumerable<string> RelevantMetrics = new[] { "MaintainabilityIndex" };
+
         public Namespace()
         {
             Types = new List<Type>();

@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Options.cs" />
     <Compile Include="Parsing\CodeMetricsParser.cs" />
+    <Compile Include="Parsing\DictionaryExtensions.cs" />
     <Compile Include="Parsing\Report.cs" />
     <Compile Include="Parsing\FlatModuleScopedResult.cs" />
     <Compile Include="Parsing\Member.cs" />
@@ -62,6 +63,16 @@
     <Compile Include="Parsing\Type.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rendering\ClassCouplingQualityAssessor.cs" />
+    <Compile Include="Rendering\CodeMetricesTemplateBase.cs" />
+    <Compile Include="Rendering\CyclomaticComplexityQualityAssessor.cs" />
+    <Compile Include="Rendering\DepthOfInheritanceQualityAssessor.cs" />
+    <Compile Include="Rendering\IQualityAssessor.cs" />
+    <Compile Include="Rendering\LinesOfCodeQualityAssessor.cs" />
+    <Compile Include="Rendering\MaintainabilityIndexQualityAssessor.cs" />
+    <Compile Include="Rendering\QualityCantBeDeterminedException.cs" />
+    <Compile Include="Rendering\QualityLevel.cs" />
+    <Compile Include="Rendering\RangeBasedQualityAssessor.cs" />
     <Compile Include="Rendering\TemplateRenderer.cs" />
     <Compile Include="ReportGenerator.cs" />
     <Compile Include="TemplateManagement\Template.cs" />

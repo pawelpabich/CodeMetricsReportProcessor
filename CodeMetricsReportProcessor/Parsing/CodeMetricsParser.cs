@@ -7,8 +7,6 @@ namespace CodeMetricsReportProcessor.Parsing
 {
     public class CodeMetricsParser
     {
-        readonly IList<FlatModuleScopedResult> results = new List<FlatModuleScopedResult>();
-
         public Report Parse(string content)
         {
             var document = XDocument.Parse(content);

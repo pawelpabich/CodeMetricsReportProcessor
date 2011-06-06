@@ -57,6 +57,10 @@
   <ItemGroup>
     <Compile Include="Parsing\code_metrics_parser.cs" />
     <Compile Include="Parsing\module.cs" />
+    <Compile Include="Rendering\class_coupling_assessor.cs" />
+    <Compile Include="Rendering\lines_of_code_quality_assessor.cs" />
+    <Compile Include="Rendering\cyclomatic_complexity_assessor.cs" />
+    <Compile Include="Rendering\maintainablitiy_index_assessor.cs" />
     <Compile Include="Rendering\template_renderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
