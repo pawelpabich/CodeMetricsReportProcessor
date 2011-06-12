@@ -41,20 +41,28 @@ function Prepare-OutputFolder
     {
         Remove-Item $OutputPath -Recurse -Force   
     }
-    New-Item "$OutputPath\tools" -type directory
+    New-Item "$OutputPath\tools" -type directory | Out-Null
         
-    $OutputPath = Resolve-Path $OutputPath
-    Write-Host "D0 $OutputPath"    
-    return $OutputPath
+    return Resolve-Path $OutputPath
+}
+
+function Build-NugetPackage($Folder, $Version)
+{
+    & ..\tools\Nuget\Nuget.exe pack ..\NugetPackage\CodeMetricsReportProcessor.nuspec /BasePath $Folder /OutputDirectory $Folder /Version $Version
+    Assert-LastExternalCallWasOK -Message "Execution of nuget.exe  failed. Check log for more details";         
+}
+
+function Get-Version($PathToFile)
+{
+    return [System.Diagnostics.FileVersionInfo]::GetVersionInfo($PathToFile).ProductVersion
 }
 
 $PathToProject = Resolve-Path ($ScriptLocation + "\..\CodeMetricsReportProcessor\CodeMetricsReportProcessor.csproj")
-Prepare-OutputFolder
+$OutputPath = Prepare-OutputFolder
 
-Write-Host "D1 $OutputPath123"
-Update-ProjectOutputPath -PathToProject $PathToProject -OutputPath "$OutputPath123\tools"
+Update-ProjectOutputPath -PathToProject $PathToProject -OutputPath "$OutputPath\tools"
 Call-MsBuild -Target "Build" -Parameters "Configuration=Release" -BuildFile $PathToProject
-#Build-NugetPackage -
-
+$Version = Get-Version -PathToFile "$OutputPath\tools\cmrp.exe"
+Build-NugetPackage -Folder $OutputPath -Version $Version
 
 Write-Host  "All Good"
