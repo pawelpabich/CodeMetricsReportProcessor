@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>CodeMetricsReportProcessor</id>
+    <version>1.0.0.0</version>
+    <authors>Pawel Pabich</authors>
+    <owners>Pawel Pabich</owners>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
+    <projectUrl>https://github.com/pawelpabich/CodeMetricsReportProcessor</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A command line tool that generates a templated (HTML by default) report based on Xml output of Visual Studio Code Metrics Power Tool</description>
+  </metadata>
+</package>

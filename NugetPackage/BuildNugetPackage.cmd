@@ -1,0 +1,1 @@
+powershell .\BuildNugetPackage.ps1
