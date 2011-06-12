@@ -1,0 +1,1 @@
+powershell .\PushNugetPackage.ps1
