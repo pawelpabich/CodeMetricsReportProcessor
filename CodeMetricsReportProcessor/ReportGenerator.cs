@@ -55,7 +55,6 @@ namespace CodeMetricsReportProcessor
             {
                 Directory.Delete(to, true);               
             }
-
             Directory.CreateDirectory(to);
 
             foreach (var fromFolderPath in Directory.GetDirectories(from, "*", SearchOption.AllDirectories))

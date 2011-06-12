@@ -59,12 +59,13 @@ namespace CodeMetricsReportProcessor.Parsing
             return results;
         }
 
-        public int GetWorstValueFor(string metric)
+        public int? GetWorstValueFor(string metric)
         {
             var qualityAssessor = new QualityAssessorFactory().Create(metric);
             var results = Flatten();
             var allMetricValues = results.Where(r => r.Metrics.ContainsKey(metric)).Select(r => r.Metrics[metric]);
 
+            if (allMetricValues.Count() == 0) return null;
             return allMetricValues.OrderBy(v => v, new MetricValueComparer(qualityAssessor)).First();
         }
 

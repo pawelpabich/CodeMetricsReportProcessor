@@ -52,10 +52,12 @@ namespace CodeMetricsReportProcessor
                 }
 
                 LogException(ex, message);
+                throw;
             }
             catch (Exception e)
             {
                 LogException(e, "Something went bad.");
+                throw;
             }
             finally
             {

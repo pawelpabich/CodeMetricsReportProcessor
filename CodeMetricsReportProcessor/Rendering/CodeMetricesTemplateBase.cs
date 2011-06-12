@@ -22,5 +22,11 @@ namespace CodeMetricsReportProcessor.Rendering
                     throw new ArgumentOutOfRangeException();
             }
         }
+
+        public string ReplaceDotsWithSpaces(string value)
+        {
+            if (value == null) return value;
+            return value.Replace(".", " ");
+        }
     }
 }

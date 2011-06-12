@@ -25,7 +25,7 @@
             <tbody>
                 @foreach(var result in Model.Flatten()) {
                     <tr>
-                        <td>@result.Namespace</td>
+                        <td>@this.ReplaceDotsWithSpaces(result.Namespace)</td>
                         <td>@result.Type</td>
                         <td>@result.Member</td>
                         @foreach(var metric in allPossibleMetrics) {
